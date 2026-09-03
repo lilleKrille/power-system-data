@@ -16,9 +16,12 @@ load_data["datetime"] = pd.to_datetime(load_data["datetime"], utc=True)
 #Samler lastdata etter månad, og reikner ut snittlast
 avg_load = load_data.groupby(load_data["datetime"].dt.month)["Actual Load"].mean().round(2)
 
+stats = load_data.groupby(load_data["datetime"].dt.month)["Actual Load"].describe().loc[:, ["std", "min", "max"]]
+print(stats)
 
 #Skriv til fil
 pd.DataFrame(avg_load.values, index=months, columns=["Gjennomsnittlig last (MW)"]).to_csv("elk320/elk330/ovingar/power-system-data/results/manedlig_last_2025.csv")
+pd.DataFrame(stats.values, index=months, columns=["std", "Minste månedlig last", "Maksimale månedlig last"]).to_csv("elk320/elk330/ovingar/power-system-data/results/manedlig_last_2025_stats.csv")
 
 #Plotter resultatet
 fig, ax = plt.subplots()
