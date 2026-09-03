@@ -18,7 +18,7 @@ avg_load = load_data.groupby(load_data["datetime"].dt.month)["Actual Load"].mean
 
 
 #Skriv til fil
-pd.DataFrame(avg_load.values, index=months, columns=["Gjennomsnittlig last (MW)"]).to_csv("elk320/elk330/ovingar/power-system-data/results/avg_load.csv")
+pd.DataFrame(avg_load.values, index=months, columns=["Gjennomsnittlig last (MW)"]).to_csv("elk320/elk330/ovingar/power-system-data/results/manedlig_last_2025.csv")
 
 #Plotter resultatet
 fig, ax = plt.subplots()
@@ -26,3 +26,6 @@ ax.plot(months, avg_load.values)
 ax.set_xlabel("Månad")
 ax.set_ylabel("Gjennomsnittlig last (MW)")
 plt.show()
+
+#save plot to file
+fig.savefig("elk320/elk330/ovingar/power-system-data/results/manedlig_last_2025.png")
